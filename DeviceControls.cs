@@ -33,7 +33,7 @@ public sealed class DeviceControls
         get
         {
             var a = (AudioManager?)ctx.GetSystemService(Context.AudioService);
-            return a?.GetStreamVolume(Stream.Music) ?? 0;
+            return a?.GetStreamVolume(Android.Media.Stream.Music) ?? 0;
         }
     }
     public int MaxMediaVolume
@@ -41,7 +41,7 @@ public sealed class DeviceControls
         get
         {
             var a = (AudioManager?)ctx.GetSystemService(Context.AudioService);
-            return Math.Max(1, a?.GetStreamMaxVolume(Stream.Music) ?? 15);
+            return Math.Max(1, a?.GetStreamMaxVolume(Android.Media.Stream.Music) ?? 15);
         }
     }
     public bool TrySetBrightness(int level, out string message)
@@ -64,8 +64,8 @@ public sealed class DeviceControls
         {
             var a = (AudioManager?)ctx.GetSystemService(Context.AudioService);
             if (a == null) { message = "Áudio indisponível."; return false; }
-            value = Math.Clamp(value, 0, a.GetStreamMaxVolume(Stream.Music));
-            a.SetStreamVolume(Stream.Music, value, VolumeNotificationFlags.ShowUi);
+            value = Math.Clamp(value, 0, a.GetStreamMaxVolume(Android.Media.Stream.Music));
+            a.SetStreamVolume(Android.Media.Stream.Music, value, VolumeNotificationFlags.ShowUi);
             message = $"Volume de mídia ajustado: {value}/{MaxMediaVolume}";
             return true;
         }
